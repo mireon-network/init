@@ -16,10 +16,11 @@ curl -fsSL https://raw.githubusercontent.com/mireon-network/init/main/init.sh | 
 
 ## После скрипта
 
-1. Не закрывай текущую сессию root.
-2. Проверь вход в **новом** терминале: `ssh -p <SSH_PORT> <NEW_USER>@<IP>`
-3. Если ок — `reboot`
-4. Лог: `/home/<NEW_USER>/vps_setup.log`
+Сервер перезагрузится сам. Когда поднимется — проверь вход:
+
+`ssh -p <SSH_PORT> <NEW_USER>@<IP>`
+
+Лог: `/home/<NEW_USER>/vps_setup.log`
 
 ## Требования
 
