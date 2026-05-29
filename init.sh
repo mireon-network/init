@@ -143,8 +143,7 @@ ufw default allow outgoing
 ufw allow "$SSH_PORT/tcp"
 ufw allow 80/tcp
 ufw allow 443/tcp
-# ufw --force enable
-log_success "UFW настроен но НЕ активирован. Открыты порты: $SSH_PORT, 80, 443."
+log_success "UFW настроен. Открыты порты: $SSH_PORT, 80, 443. Включение — в конце скрипта."
 
 # ==========================================
 # ФАЗА 6: Настройка Fail2ban
@@ -166,9 +165,7 @@ backend = systemd
 mode    = aggressive
 EOF
 
-# systemctl enable fail2ban
-# systemctl restart fail2ban
-log_success "Fail2ban настроен но НЕ запущен."
+log_success "Fail2ban настроен. Включение — в конце скрипта."
 
 # ==========================================
 # ФАЗА 7: Установка Docker
@@ -184,6 +181,12 @@ log_success "Docker установлен. Пользователь $NEW_USER д�
 # ФАЗА 8: Финализация и сохранение логов
 # ==========================================
 log_info "Шаг 8/8: Завершение работы и перенос логов..."
+
+log_info "Включение UFW и Fail2ban..."
+ufw --force enable
+systemctl enable fail2ban
+systemctl restart fail2ban
+log_success "UFW активен. Fail2ban включён в автозагрузку и запущен."
 
 echo -e "\n========================================================================"
 log_success "✅ ПЕРВОНАЧАЛЬНАЯ НАСТРОЙКА УСПЕШНО ЗАВЕРШЕНА!"
